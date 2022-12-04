@@ -6,9 +6,11 @@
 	const numbers = Array.from(Array(9), (value, key) => key + 1);
 	const dispatch = createEventDispatcher();
 	const inputDispatcher = (event: MouseEvent): void => {
-		dispatch('input', {
-			value: event.target.value
-		});
+		if (event.target) {
+			dispatch('input', {
+				value: (event.target as HTMLInputElement).value
+			});
+		}
 	};
 	const deleteDispatcher = (): void => {
 		dispatch('delete');
