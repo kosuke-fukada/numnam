@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import { fade, slide } from 'svelte/transition';
 	export let show = false;
 	const dispatch = createEventDispatcher();
 	const closeDispatcher = () => {
@@ -12,16 +13,25 @@
 	};
 </script>
 
-<div class="modal-wrapper" class:show on:click={closeDispatcher} on:keydown={keyDownDispatcher}>
-	<div class="modal-container">
-		<div class="modal-content">
-			<div>
-				<slot />
+{#key show}
+	<div
+		class="modal-wrapper"
+		class:show
+		on:click={closeDispatcher}
+		on:keydown={keyDownDispatcher}
+		in:fade={{ duration: 100 }}
+		out:fade={{ delay: 300 }}
+	>
+		<div class="modal-container" in:slide={{ delay: 100 }} out:slide={{ duration: 300 }}>
+			<div class="modal-content">
+				<div>
+					<slot />
+				</div>
+				<button class="close-button" on:click={closeDispatcher}>CLOSE</button>
 			</div>
-			<button class="close-button" on:click={closeDispatcher}>CLOSE</button>
 		</div>
 	</div>
-</div>
+{/key}
 
 <style lang="scss">
 	.modal-wrapper {
@@ -30,7 +40,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background-color: rgba($color: #000000, $alpha: 0.7);
+		background-color: rgba($color: #000000, $alpha: 0.8);
 		display: none;
 		&.show {
 			display: block;
