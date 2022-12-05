@@ -39,12 +39,21 @@
 	.num-button-container {
 		display: flex;
 		flex-wrap: wrap;
+		width: min(100%, 500px);
+		position: absolute;
+		margin: auto;
+		left: 0;
+		right: 0;
+		bottom: 0;
 		.num-button {
 			width: 33%;
-			height: 100px;
-			font-size: 30px;
+			height: max(10vh, 70px);
+			font-size: min(5vh, 30px);
 			font-family: 'DSEG7-Classic';
 			font-weight: bold;
+			background-color: #161b22;
+			color: #ffffff;
+			border: none;
 		}
 	}
 </style>

@@ -17,7 +17,7 @@
 	<div
 		class="modal-wrapper"
 		class:show
-		on:click={closeDispatcher}
+		on:click|self={closeDispatcher}
 		on:keydown={keyDownDispatcher}
 		in:fade={{ duration: 100 }}
 		out:fade={{ delay: 300 }}
@@ -54,7 +54,7 @@
 			right: 0;
 			bottom: 0;
 			border-radius: 10px;
-			background-color: #0b0719;
+			background-color: #086a87;
 			z-index: 11;
 			width: min(75%, 500px);
 			height: min(75%, 500px);
@@ -64,13 +64,17 @@
 				padding: 50px;
 				margin: 0 auto;
 				.close-button {
-					width: min(25%, 125px);
-					height: 30px;
+					width: min(50%, 125px);
+					height: min(5vh, 50px);
 					position: absolute;
 					margin: 0 auto;
 					left: 0;
 					right: 0;
-					bottom: 50px;
+					bottom: 30px;
+					border-radius: 20px;
+					border: none;
+					font-size: min(2.5vh, 20px);
+					color: #6e6e6e;
 				}
 			}
 		}
