@@ -1,6 +1,7 @@
 <script lang="ts">
 	/** @ts-ignore */
 	import Input from '../components/Input.svelte';
+	import Modal from '../components/Modal.svelte';
 	import Numbers from '../components/Numbers.svelte';
 	import {
 		Digit,
@@ -15,6 +16,8 @@
 	let index = 0;
 	let result: Result = results.correct;
 	let trialCount = 1;
+	let modalShow = false;
+	let message: string;
 
 	const createRandomDigits = (): FiveDigitsArray => {
 		const digits: OneDigitNumber[] = [];
@@ -62,23 +65,27 @@
 			}
 		});
 		if (result === results.correct) {
-			alert('correct!');
+			message = 'correct!';
 			trialCount = 1;
 		} else {
-			alert('incorrect!');
+			message = 'incorrect!';
 			if (trialCount === 3) {
-				alert('failed!');
+				message = 'failed!';
 				trialCount = 1;
 			} else {
 				trialCount++;
 			}
 		}
+		handleModal();
 		index = 0;
 		fiveDigitsArray.forEach((digit: Digit) => {
 			digit.input = undefined;
 		});
 		numbers = new FiveDigits(fiveDigitsArray);
 		result = results.correct;
+	};
+	const handleModal = () => {
+		modalShow = !modalShow;
 	};
 </script>
 
@@ -90,3 +97,4 @@
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 <Numbers {numbers} />
 <Input on:input={handleInput} on:delete={handleDelete} on:submit={handleSubmit} />
+<Modal show={modalShow} on:close={handleModal}>{message}</Modal>
