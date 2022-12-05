@@ -65,6 +65,10 @@
 		} else {
 			alert('incorrect!');
 		}
+		fiveDigitsArray.forEach((digit: Digit) => {
+			digit.input = undefined;
+		});
+		numbers = new FiveDigits(fiveDigitsArray);
 		result = results.correct;
 	};
 </script>
