@@ -13,15 +13,31 @@
 		type Result
 	} from '../types/numbers';
 	let index = 0;
-	let fiveDigitsArray: FiveDigitsArray = [
-		new Digit(statuses.default, 1, undefined),
-		new Digit(statuses.default, 1, undefined),
-		new Digit(statuses.default, 1, undefined),
-		new Digit(statuses.default, 1, undefined),
-		new Digit(statuses.default, 1, undefined)
-	];
-	let numbers: FiveDigits = new FiveDigits(fiveDigitsArray);
 	let result: Result = results.correct;
+
+	const createRandomDigits = (): FiveDigitsArray => {
+		const digits: OneDigitNumber[] = [];
+		while (digits.length < 5) {
+			const random: OneDigitNumber = Math.floor(Math.random() * 10) as OneDigitNumber;
+			if (!digits.length && random === 0) {
+				continue;
+			}
+			if (digits.includes(random)) {
+				continue;
+			}
+			digits.push(random);
+		}
+		return [
+			new Digit(statuses.default, digits[0], undefined),
+			new Digit(statuses.default, digits[1], undefined),
+			new Digit(statuses.default, digits[2], undefined),
+			new Digit(statuses.default, digits[3], undefined),
+			new Digit(statuses.default, digits[4], undefined)
+		];
+	};
+
+	let fiveDigitsArray: FiveDigitsArray = createRandomDigits();
+	let numbers: FiveDigits = new FiveDigits(fiveDigitsArray);
 
 	const handleInput = (event: CustomEvent<{ value: OneDigitNumber | NotZeroOneDigitNumber }>) => {
 		if (index === 5) return;
