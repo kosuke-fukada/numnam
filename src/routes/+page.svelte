@@ -56,7 +56,13 @@
 		numbers = new FiveDigits(fiveDigitsArray);
 	};
 	const handleSubmit = () => {
-		numbers.toArray().forEach((digit: Digit) => {
+		const inputNumbers: FiveDigitsArray = numbers.toArray();
+		let undefinedIncluded = false;
+		inputNumbers.forEach((digit: Digit) => {
+			if (digit.input === undefined) {
+				undefinedIncluded = true;
+				return;
+			}
 			if (!digit.isInputSameAsAnswer()) {
 				digit.status = statuses.incorrect;
 				if (result === results.correct) {
@@ -64,6 +70,8 @@
 				}
 			}
 		});
+		if (undefinedIncluded) return;
+		numbers = new FiveDigits(inputNumbers);
 		if (result === results.correct) {
 			message = 'correct!';
 			trialCount = 1;
