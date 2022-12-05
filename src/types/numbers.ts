@@ -8,8 +8,16 @@ export const statuses = {
 
 export type Status = typeof statuses[keyof typeof statuses];
 
-type Input = OneDigitNumber | NotZeroOneDigitNumber | undefined;
-type Answer = OneDigitNumber | NotZeroOneDigitNumber;
+export const results = {
+	correct: 0,
+	bigger: 1,
+	smaller: 2
+};
+
+export type Result = typeof results[keyof typeof results];
+
+export type Input = OneDigitNumber | NotZeroOneDigitNumber | undefined;
+export type Answer = OneDigitNumber | NotZeroOneDigitNumber;
 
 export class Digit {
 	input: Input;
@@ -32,6 +40,8 @@ export class Digit {
 	}
 }
 
+export type FiveDigitsArray = [Digit, Digit, Digit, Digit, Digit];
+
 export class FiveDigits {
 	tenThousand: Digit;
 	thousand: Digit;
@@ -39,12 +49,8 @@ export class FiveDigits {
 	ten: Digit;
 	one: Digit;
 
-	constructor(tenThousand: Digit, thousand: Digit, hundred: Digit, ten: Digit, one: Digit) {
-		this.tenThousand = tenThousand;
-		this.thousand = thousand;
-		this.hundred = hundred;
-		this.ten = ten;
-		this.one = one;
+	constructor(fiveDigitsArray: FiveDigitsArray) {
+		[this.tenThousand, this.thousand, this.hundred, this.ten, this.one] = fiveDigitsArray;
 	}
 
 	toArray(): Digit[] {
