@@ -14,6 +14,7 @@
 	} from '../types/numbers';
 	let index = 0;
 	let result: Result = results.correct;
+	let trialCount = 1;
 
 	const createRandomDigits = (): FiveDigitsArray => {
 		const digits: OneDigitNumber[] = [];
@@ -62,9 +63,17 @@
 		});
 		if (result === results.correct) {
 			alert('correct!');
+			trialCount = 1;
 		} else {
 			alert('incorrect!');
+			if (trialCount === 3) {
+				alert('failed!');
+				trialCount = 1;
+			} else {
+				trialCount++;
+			}
 		}
+		index = 0;
 		fiveDigitsArray.forEach((digit: Digit) => {
 			digit.input = undefined;
 		});
