@@ -8,7 +8,7 @@
 	const inputDispatcher = (event: MouseEvent): void => {
 		if (event.target) {
 			dispatch('input', {
-				value: (event.target as HTMLInputElement).value
+				value: Number((event.target as HTMLInputElement).value)
 			});
 		}
 	};
