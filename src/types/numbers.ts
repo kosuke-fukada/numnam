@@ -53,7 +53,7 @@ export class FiveDigits {
 		[this.tenThousand, this.thousand, this.hundred, this.ten, this.one] = fiveDigitsArray;
 	}
 
-	toArray(): Digit[] {
+	toArray(): FiveDigitsArray {
 		return [this.tenThousand, this.thousand, this.hundred, this.ten, this.one];
 	}
 }
