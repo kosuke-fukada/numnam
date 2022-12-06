@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ResultNumbers from '../components/ResultNumbers.svelte';
 	/** @ts-ignore */
 	import Input from '../components/Input.svelte';
 	import Modal from '../components/Modal.svelte';
@@ -6,11 +7,14 @@
 	import {
 		Digit,
 		FiveDigits,
+		ReadOnlyDigit,
+		ResultDigits,
 		results,
 		statuses,
 		type FiveDigitsArray,
 		type NotZeroOneDigitNumber,
 		type OneDigitNumber,
+		type ReadOnlyFiveDigitsArray,
 		type Result
 	} from '../types/numbers';
 	let index = 0;
@@ -42,6 +46,7 @@
 
 	let fiveDigitsArray: FiveDigitsArray = createRandomDigits();
 	let numbers: FiveDigits = new FiveDigits(fiveDigitsArray);
+	let resultNumbers: ResultDigits[] = [];
 
 	const handleInput = (event: CustomEvent<{ value: OneDigitNumber | NotZeroOneDigitNumber }>) => {
 		if (index === 5) return;
@@ -55,7 +60,7 @@
 		fiveDigitsArray[index].input = undefined;
 		numbers = new FiveDigits(fiveDigitsArray);
 	};
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		const inputNumbers: FiveDigitsArray = numbers.toArray();
 		let undefinedIncluded = false;
 		inputNumbers.forEach((digit: Digit) => {
@@ -72,24 +77,36 @@
 		});
 		if (undefinedIncluded) return;
 		numbers = new FiveDigits(inputNumbers);
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
 		if (result === results.correct) {
 			message = 'correct!';
 			trialCount = 1;
+			handleModal();
 		} else {
-			message = 'incorrect!';
 			if (trialCount === 3) {
 				message = 'failed!';
 				trialCount = 1;
+				handleModal();
 			} else {
 				trialCount++;
+				const readOnlyFiveDigitsArray: ReadOnlyFiveDigitsArray = inputNumbers.map(
+					(digit: Digit) => {
+						return new ReadOnlyDigit(digit.status, digit.answer, digit.input);
+					}
+				) as ReadOnlyFiveDigitsArray;
+				resultNumbers = [...resultNumbers, new ResultDigits(readOnlyFiveDigitsArray, result)];
+				resetInput();
 			}
 		}
-		handleModal();
+	};
+	const resetInput = () => {
 		index = 0;
-		fiveDigitsArray.forEach((digit: Digit) => {
+		numbers.toArray().forEach((digit: Digit) => {
 			digit.input = undefined;
+			digit.status = statuses.default;
 		});
-		numbers = new FiveDigits(fiveDigitsArray);
+		numbers = new FiveDigits(numbers.toArray());
 		result = results.correct;
 	};
 	const handleModal = () => {
@@ -103,6 +120,7 @@
 
 <h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-<Numbers {numbers} />
+<Numbers {numbers} {result} />
+<ResultNumbers results={resultNumbers} />
 <Input on:input={handleInput} on:delete={handleDelete} on:submit={handleSubmit} />
 <Modal show={modalShow} on:close={handleModal}>{message}</Modal>

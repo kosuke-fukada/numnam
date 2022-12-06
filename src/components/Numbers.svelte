@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { results, type FiveDigits } from '../types/numbers';
+	import { results, type FiveDigits, type ResultDigits } from '../types/numbers';
 	import Num from './Num.svelte';
-	export let numbers: FiveDigits;
+	export let numbers: FiveDigits | ResultDigits;
 	export let result = results.correct;
 </script>
 
@@ -10,11 +10,13 @@
 	class:bigger={result === results.bigger}
 	class:smaller={result === results.smaller}
 >
-	{#each numbers.toArray() as number}
-		{#if typeof number.input !== 'undefined'}
-			<Num {number} />
-		{/if}
-	{/each}
+	{#if numbers}
+		{#each numbers.toArray() as number}
+			{#if typeof number.input !== 'undefined'}
+				<Num {number} />
+			{/if}
+		{/each}
+	{/if}
 </div>
 
 <style lang="scss">
