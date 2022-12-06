@@ -1,3 +1,7 @@
+<svelte:head>
+	<link href="../../node_modules/dseg/css/dseg.css" rel="stylesheet" />
+</svelte:head>
+
 <div class="container">
 	<slot />
 </div>
