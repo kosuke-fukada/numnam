@@ -9,7 +9,7 @@
 <div class="results">
 	{#each results.reverse() as result, index}
 		<div class="result-container">
-			<span class="title">{index === 1 ? '1st' : '2nd'} Trial</span>
+			<span class="title">{results.length === 2 && index === 0 ? '2nd' : '1st'} Trial</span>
 			<Numbers numbers={result} result={result.result} />
 		</div>
 	{/each}
