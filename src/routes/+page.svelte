@@ -121,10 +121,6 @@
 	};
 </script>
 
-<svelte:head>
-	<link href="../../node_modules/dseg/css/dseg.css" rel="stylesheet" />
-</svelte:head>
-
 <h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 <Numbers {numbers} {result} />
