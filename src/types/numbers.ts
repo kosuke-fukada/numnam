@@ -40,6 +40,12 @@ export class Digit {
 	}
 }
 
+export class ReadOnlyDigit extends Digit {
+	constructor(status: Status, readonly answer: Answer, readonly input: Input) {
+		super(status, answer, input);
+	}
+}
+
 export type FiveDigitsArray = [Digit, Digit, Digit, Digit, Digit];
 
 export class FiveDigits {
@@ -54,6 +60,32 @@ export class FiveDigits {
 	}
 
 	toArray(): FiveDigitsArray {
+		return [this.tenThousand, this.thousand, this.hundred, this.ten, this.one];
+	}
+}
+
+export type ReadOnlyFiveDigitsArray = [
+	ReadOnlyDigit,
+	ReadOnlyDigit,
+	ReadOnlyDigit,
+	ReadOnlyDigit,
+	ReadOnlyDigit
+];
+
+export class ResultDigits {
+	readonly tenThousand: ReadOnlyDigit;
+	readonly thousand: ReadOnlyDigit;
+	readonly hundred: ReadOnlyDigit;
+	readonly ten: ReadOnlyDigit;
+	readonly one: ReadOnlyDigit;
+	readonly result: Result;
+
+	constructor(fiveDigitsArray: ReadOnlyFiveDigitsArray, result: Result) {
+		[this.tenThousand, this.thousand, this.hundred, this.ten, this.one] = fiveDigitsArray;
+		this.result = result;
+	}
+
+	toArray(): ReadOnlyFiveDigitsArray {
 		return [this.tenThousand, this.thousand, this.hundred, this.ten, this.one];
 	}
 }
