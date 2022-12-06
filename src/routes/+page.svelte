@@ -22,6 +22,7 @@
 	let trialCount = 1;
 	let modalShow = false;
 	let message: string;
+	let isFinished = false;
 
 	const createRandomDigits = (): FiveDigitsArray => {
 		const digits: OneDigitNumber[] = [];
@@ -61,6 +62,7 @@
 		numbers = new FiveDigits(fiveDigitsArray);
 	};
 	const handleSubmit = async () => {
+		if (isFinished) return;
 		const inputNumbers: FiveDigitsArray = numbers.toArray();
 		const answers = inputNumbers.map((digit: Digit) => {
 			return digit.answer;
@@ -88,11 +90,13 @@
 		if (result === results.correct) {
 			message = 'correct!';
 			trialCount = 1;
+			isFinished = true;
 			handleModal();
 		} else {
 			if (trialCount === 3) {
 				message = 'failed!';
 				trialCount = 1;
+				isFinished = true;
 				handleModal();
 			} else {
 				trialCount++;
