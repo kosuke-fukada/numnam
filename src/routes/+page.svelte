@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ResultNumbers from '../components/ResultNumbers.svelte';
 	/** @ts-ignore */
+	import Header from '../components/Header.svelte';
 	import Input from '../components/Input.svelte';
 	import Modal from '../components/Modal.svelte';
 	import Numbers from '../components/Numbers.svelte';
@@ -125,7 +126,6 @@
 	};
 	const newGame = () => {
 		trialCount = 1;
-		handleModal();
 		resetInput();
 		isFinished = false;
 		resultNumbers = [];
@@ -134,6 +134,7 @@
 
 <h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<Header on:newGame={newGame} />
 <Numbers {numbers} {result} />
 <ResultNumbers results={resultNumbers} />
 <Input on:input={handleInput} on:delete={handleDelete} on:submit={handleSubmit} />

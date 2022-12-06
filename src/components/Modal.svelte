@@ -7,6 +7,7 @@
 		dispatch('close');
 	};
 	const newGameDispatcher = () => {
+		dispatch('close');
 		dispatch('newGame');
 	};
 	const keyDownDispatcher = (event: KeyboardEvent) => {
