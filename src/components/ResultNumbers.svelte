@@ -1,23 +1,34 @@
 <script lang="ts">
+	import '@fontsource/bebas-neue';
 	import type { ResultDigits } from 'src/types/numbers';
 	import Numbers from './Numbers.svelte';
 
 	export let results: ResultDigits[] = [];
 </script>
 
-<div>
+<div class="results">
 	{#each results.reverse() as result, index}
-		<span class="title">{index === 1 ? '1st' : '2nd'} Trial</span>
-		<Numbers numbers={result} result={result.result} />
+		<div class="result-container">
+			<span class="title">{index === 1 ? '1st' : '2nd'} Trial</span>
+			<Numbers numbers={result} result={result.result} />
+		</div>
 	{/each}
 </div>
 
-<style>
-	.title {
-		color: #ffffff;
-		font-size: 25px;
-		font-weight: bold;
-		font-style: italic;
-		margin-left: 15px;
+<style lang="scss">
+	.results {
+		position: relative;
+		margin: 20px auto;
+		width: min(90%, 500px);
+		.result-container {
+			margin: 10px 0;
+			.title {
+				color: #ffffff;
+				font-size: 35px;
+				font-weight: bold;
+				margin-left: 15px;
+				font-family: 'Bebas Neue';
+			}
+		}
 	}
 </style>
