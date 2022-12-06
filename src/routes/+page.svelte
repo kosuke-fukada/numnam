@@ -123,6 +123,13 @@
 	const handleModal = () => {
 		modalShow = !modalShow;
 	};
+	const newGame = () => {
+		trialCount = 1;
+		handleModal();
+		resetInput();
+		isFinished = false;
+		resultNumbers = [];
+	};
 </script>
 
 <h1>Welcome to SvelteKit</h1>
@@ -130,4 +137,4 @@
 <Numbers {numbers} {result} />
 <ResultNumbers results={resultNumbers} />
 <Input on:input={handleInput} on:delete={handleDelete} on:submit={handleSubmit} />
-<Modal show={modalShow} on:close={handleModal}>{message}</Modal>
+<Modal show={modalShow} on:close={handleModal} on:newGame={newGame}>{message}</Modal>
