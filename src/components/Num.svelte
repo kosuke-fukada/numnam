@@ -3,7 +3,11 @@
 	export let number: Digit;
 </script>
 
-<span class="num" class:incorrect={number.status === statuses.incorrect}>
+<span
+	class="num"
+	class:incorrect={number.status === statuses.incorrect && !number.included}
+	class:included={number.status === statuses.incorrect && number.included}
+>
 	{number.input}
 </span>
 
@@ -18,6 +22,9 @@
 		font-style: italic;
 		&.incorrect {
 			color: #585858;
+		}
+		&.included {
+			color: #fa650b;
 		}
 	}
 </style>
