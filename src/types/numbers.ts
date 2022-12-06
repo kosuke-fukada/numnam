@@ -2,7 +2,7 @@ export type OneDigitNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 export type NotZeroOneDigitNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 export const statuses = {
 	default: 0,
-	same: 1,
+	correct: 1,
 	incorrect: 2
 } as const;
 
@@ -22,10 +22,12 @@ export type Answer = OneDigitNumber | NotZeroOneDigitNumber;
 export class Digit {
 	input: Input;
 	status: Status;
+	included: boolean;
 
-	constructor(status: Status, readonly answer: Answer, input?: Input) {
+	constructor(status: Status, readonly answer: Answer, included: boolean, input?: Input) {
 		this.input = input;
 		this.status = status;
+		this.included = included;
 	}
 
 	isInputSameAsAnswer(): boolean {
@@ -41,8 +43,8 @@ export class Digit {
 }
 
 export class ReadOnlyDigit extends Digit {
-	constructor(status: Status, readonly answer: Answer, readonly input: Input) {
-		super(status, answer, input);
+	constructor(status: Status, readonly answer: Answer, included: boolean, readonly input: Input) {
+		super(status, answer, included, input);
 	}
 }
 

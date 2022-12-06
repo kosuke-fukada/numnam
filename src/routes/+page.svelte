@@ -36,11 +36,11 @@
 			digits.push(random);
 		}
 		return [
-			new Digit(statuses.default, digits[0], undefined),
-			new Digit(statuses.default, digits[1], undefined),
-			new Digit(statuses.default, digits[2], undefined),
-			new Digit(statuses.default, digits[3], undefined),
-			new Digit(statuses.default, digits[4], undefined)
+			new Digit(statuses.default, digits[0], false, undefined),
+			new Digit(statuses.default, digits[1], false, undefined),
+			new Digit(statuses.default, digits[2], false, undefined),
+			new Digit(statuses.default, digits[3], false, undefined),
+			new Digit(statuses.default, digits[4], false, undefined)
 		];
 	};
 
@@ -62,6 +62,9 @@
 	};
 	const handleSubmit = async () => {
 		const inputNumbers: FiveDigitsArray = numbers.toArray();
+		const answers = inputNumbers.map((digit: Digit) => {
+			return digit.answer;
+		});
 		let undefinedIncluded = false;
 		inputNumbers.forEach((digit: Digit) => {
 			if (digit.input === undefined) {
@@ -70,6 +73,9 @@
 			}
 			if (!digit.isInputSameAsAnswer()) {
 				digit.status = statuses.incorrect;
+				if (answers.includes(digit.input)) {
+					digit.included = true;
+				}
 				if (result === results.correct) {
 					result = digit.isInputBiggerThanAnswer() ? results.bigger : results.smaller;
 				}
@@ -92,7 +98,7 @@
 				trialCount++;
 				const readOnlyFiveDigitsArray: ReadOnlyFiveDigitsArray = inputNumbers.map(
 					(digit: Digit) => {
-						return new ReadOnlyDigit(digit.status, digit.answer, digit.input);
+						return new ReadOnlyDigit(digit.status, digit.answer, digit.included, digit.input);
 					}
 				) as ReadOnlyFiveDigitsArray;
 				resultNumbers = [...resultNumbers, new ResultDigits(readOnlyFiveDigitsArray, result)];
@@ -105,6 +111,7 @@
 		numbers.toArray().forEach((digit: Digit) => {
 			digit.input = undefined;
 			digit.status = statuses.default;
+			digit.included = false;
 		});
 		numbers = new FiveDigits(numbers.toArray());
 		result = results.correct;
