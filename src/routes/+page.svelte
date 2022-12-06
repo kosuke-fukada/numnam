@@ -5,6 +5,7 @@
 	import Input from '../components/Input.svelte';
 	import Modal from '../components/Modal.svelte';
 	import Numbers from '../components/Numbers.svelte';
+	import ResultModalContent from '../components/ResultModalContent.svelte';
 	import {
 		Digit,
 		FiveDigits,
@@ -22,7 +23,7 @@
 	let result: Result = results.correct;
 	let trialCount = 1;
 	let modalShow = false;
-	let message: string;
+	let title: string;
 	let isFinished = false;
 
 	const createRandomDigits = (): FiveDigitsArray => {
@@ -89,13 +90,13 @@
 		await new Promise((resolve) => setTimeout(resolve, 0));
 
 		if (result === results.correct) {
-			message = 'correct!';
+			title = 'Success!';
 			trialCount = 1;
 			isFinished = true;
 			handleModal();
 		} else {
 			if (trialCount === 3) {
-				message = 'failed!';
+				title = 'Failed!';
 				trialCount = 1;
 				isFinished = true;
 				handleModal();
@@ -138,4 +139,6 @@
 <Numbers {numbers} {result} />
 <ResultNumbers results={resultNumbers} />
 <Input on:input={handleInput} on:delete={handleDelete} on:submit={handleSubmit} />
-<Modal show={modalShow} on:close={handleModal} on:newGame={newGame}>{message}</Modal>
+<Modal show={modalShow} on:close={handleModal}>
+	<ResultModalContent {title} on:close={handleModal} on:newGame={newGame} />
+</Modal>
