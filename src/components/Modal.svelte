@@ -6,10 +6,6 @@
 	const closeDispatcher = () => {
 		dispatch('close');
 	};
-	const newGameDispatcher = () => {
-		dispatch('close');
-		dispatch('newGame');
-	};
 	const keyDownDispatcher = (event: KeyboardEvent) => {
 		if (event.key === 'esc') {
 			dispatch('close');
@@ -31,8 +27,6 @@
 				<div>
 					<slot />
 				</div>
-				<button class="new-game-button" on:click={newGameDispatcher}>NEW GAME</button>
-				<button class="close-button" on:click={closeDispatcher}>CLOSE</button>
 			</div>
 		</div>
 	</div>
@@ -62,38 +56,12 @@
 			background-color: #086a87;
 			z-index: 11;
 			width: min(75%, 500px);
-			height: min(75%, 500px);
+			max-height: min(75%, 500px);
 			.modal-content {
 				text-align: center;
 				color: #ffffff;
 				padding: 50px;
 				margin: 0 auto;
-				.close-button {
-					width: min(50%, 150px);
-					height: min(5vh, 50px);
-					position: absolute;
-					margin: 0 auto;
-					left: 0;
-					right: 0;
-					bottom: 30px;
-					border-radius: 20px;
-					border: none;
-					font-size: min(2.5vh, 20px);
-					color: #6e6e6e;
-				}
-				.new-game-button {
-					width: min(50%, 150px);
-					height: min(5vh, 50px);
-					position: absolute;
-					margin: 0 auto;
-					left: 0;
-					right: 0;
-					bottom: 100px;
-					border-radius: 20px;
-					border: none;
-					font-size: min(2.5vh, 20px);
-					color: #6e6e6e;
-				}
 			}
 		}
 	}
