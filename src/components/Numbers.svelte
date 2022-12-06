@@ -29,11 +29,14 @@
 		background-color: #151515;
 		padding: 20px 20px 20px 0;
 		min-height: min(5vh, 65px);
+		border-radius: 10px;
 		&.bigger {
-			background-color: #b40431;
+			background-color: #05122b;
+			border: 5px solid #fa4a8c;
 		}
 		&.smaller {
-			background-color: #08088a;
+			background-color: #05122b;
+			border: 5px solid #524afa;
 		}
 	}
 </style>
