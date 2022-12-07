@@ -1,5 +1,6 @@
 export type OneDigitNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 export type NotZeroOneDigitNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+export const onesPlaceDigit = [0, 5];
 export const statuses = {
 	default: 0,
 	correct: 1,
