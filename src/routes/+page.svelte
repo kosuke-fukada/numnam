@@ -24,8 +24,8 @@
 	let result: Result = results.correct;
 	let trialCount = 1;
 	let modalShow = false;
-	let title: string;
-	let isFinished = false;
+	let title = '';
+	$: isFinished = title.length > 0;
 
 	const createRandomDigits = (): FiveDigitsArray => {
 		const digits: OneDigitNumber[] = [];
@@ -95,14 +95,10 @@
 
 		if (result === results.correct) {
 			title = 'Success!';
-			trialCount = 1;
-			isFinished = true;
 			handleModal();
 		} else {
 			if (trialCount === 3) {
 				title = 'Failed!';
-				trialCount = 1;
-				isFinished = true;
 				answer = numbers.answer();
 				handleModal();
 			} else {
@@ -127,6 +123,7 @@
 		numbers = new FiveDigits(numbers.toArray());
 		answer = undefined;
 		result = results.correct;
+		title = '';
 	};
 	const handleModal = () => {
 		modalShow = !modalShow;
@@ -134,8 +131,8 @@
 	const newGame = () => {
 		trialCount = 1;
 		resetInput();
-		isFinished = false;
 		resultNumbers = [];
+		fiveDigitsArray = createRandomDigits();
 	};
 </script>
 
