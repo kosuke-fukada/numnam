@@ -65,6 +65,16 @@ export class FiveDigits {
 	toArray(): FiveDigitsArray {
 		return [this.tenThousand, this.thousand, this.hundred, this.ten, this.one];
 	}
+
+	answer(): number {
+		return (
+			this.tenThousand.answer * 10000 +
+			this.thousand.answer * 1000 +
+			this.hundred.answer * 100 +
+			this.ten.answer * 10 +
+			this.one.answer
+		);
+	}
 }
 
 export type ReadOnlyFiveDigitsArray = [
