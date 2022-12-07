@@ -9,6 +9,7 @@
 	import {
 		Digit,
 		FiveDigits,
+		onesPlaceDigit,
 		ReadOnlyDigit,
 		ResultDigits,
 		results,
@@ -28,9 +29,9 @@
 
 	const createRandomDigits = (): FiveDigitsArray => {
 		const digits: OneDigitNumber[] = [];
-		while (digits.length < 5) {
+		while (digits.length < 4) {
 			const random: OneDigitNumber = Math.floor(Math.random() * 10) as OneDigitNumber;
-			if (!digits.length && random === 0) {
+			if (onesPlaceDigit.includes(random)) {
 				continue;
 			}
 			if (digits.includes(random)) {
@@ -38,6 +39,8 @@
 			}
 			digits.push(random);
 		}
+		const onesPlace = Math.random() * 10 > 5 ? 5 : 0;
+		digits.push(onesPlace);
 		return [
 			new Digit(statuses.default, digits[0], false, undefined),
 			new Digit(statuses.default, digits[1], false, undefined),
