@@ -53,6 +53,7 @@
 	let fiveDigitsArray: FiveDigitsArray = createRandomDigits();
 	let numbers: FiveDigits = new FiveDigits(fiveDigitsArray);
 	let resultNumbers: ResultDigits[] = [];
+	let answer: number | undefined;
 
 	const handleInput = (event: CustomEvent<{ value: OneDigitNumber | NotZeroOneDigitNumber }>) => {
 		if (index === 5) return;
@@ -102,6 +103,7 @@
 				title = 'Failed!';
 				trialCount = 1;
 				isFinished = true;
+				answer = numbers.answer();
 				handleModal();
 			} else {
 				trialCount++;
@@ -123,6 +125,7 @@
 			digit.included = false;
 		});
 		numbers = new FiveDigits(numbers.toArray());
+		answer = undefined;
 		result = results.correct;
 	};
 	const handleModal = () => {
@@ -143,5 +146,5 @@
 <ResultNumbers results={resultNumbers} />
 <Input on:input={handleInput} on:delete={handleDelete} on:submit={handleSubmit} />
 <Modal show={modalShow} on:close={handleModal}>
-	<ResultModalContent {title} on:close={handleModal} on:newGame={newGame} />
+	<ResultModalContent {title} {answer} on:close={handleModal} on:newGame={newGame} />
 </Modal>
