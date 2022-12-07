@@ -60,7 +60,7 @@
 			.modal-content {
 				text-align: center;
 				color: #ffffff;
-				padding: 50px;
+				padding: 30px;
 				margin: 0 auto;
 			}
 		}
