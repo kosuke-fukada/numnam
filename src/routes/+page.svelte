@@ -51,21 +51,19 @@
 	};
 
 	let fiveDigitsArray: FiveDigitsArray = createRandomDigits();
-	let numbers: FiveDigits = new FiveDigits(fiveDigitsArray);
+	$: numbers = new FiveDigits(fiveDigitsArray);
 	let resultNumbers: ResultDigits[] = [];
 	let answer: number | undefined;
 
 	const handleInput = (event: CustomEvent<{ value: OneDigitNumber | NotZeroOneDigitNumber }>) => {
 		if (index === 5) return;
 		fiveDigitsArray[index].input = event.detail.value;
-		numbers = new FiveDigits(fiveDigitsArray);
 		index++;
 	};
 	const handleDelete = () => {
 		if (index === 0) return;
 		index--;
 		fiveDigitsArray[index].input = undefined;
-		numbers = new FiveDigits(fiveDigitsArray);
 	};
 	const handleSubmit = async () => {
 		if (isFinished) return;
@@ -90,7 +88,6 @@
 			}
 		});
 		if (undefinedIncluded) return;
-		numbers = new FiveDigits(inputNumbers);
 		await new Promise((resolve) => setTimeout(resolve, 0));
 
 		if (result === results.correct) {
@@ -115,12 +112,13 @@
 	};
 	const resetInput = () => {
 		index = 0;
-		numbers.toArray().forEach((digit: Digit) => {
+		const resetNumbers = numbers.toArray();
+		resetNumbers.forEach((digit: Digit) => {
 			digit.input = undefined;
 			digit.status = statuses.default;
 			digit.included = false;
 		});
-		numbers = new FiveDigits(numbers.toArray());
+		fiveDigitsArray = resetNumbers;
 		answer = undefined;
 		result = results.correct;
 		title = '';
