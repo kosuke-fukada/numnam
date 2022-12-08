@@ -20,12 +20,23 @@
 		type ReadOnlyFiveDigitsArray,
 		type Result
 	} from '../types/numbers';
+	import { onMount } from 'svelte';
 	let index = 0;
 	let result: Result = results.correct;
 	let trialCount = 1;
 	let modalShow = false;
 	let title = '';
 	$: isFinished = title.length > 0;
+	export type Stats = {
+		challenges: number;
+		success: number;
+		failed: number;
+	};
+	let stats: Stats = {
+		challenges: 0,
+		success: 0,
+		failed: 0
+	};
 
 	const createRandomDigits = (): FiveDigitsArray => {
 		const digits: OneDigitNumber[] = [];
@@ -55,17 +66,19 @@
 	let resultNumbers: ResultDigits[] = [];
 	let answer: number | undefined;
 
-	const handleInput = (event: CustomEvent<{ value: OneDigitNumber | NotZeroOneDigitNumber }>) => {
+	const handleInput = (
+		event: CustomEvent<{ value: OneDigitNumber | NotZeroOneDigitNumber }>
+	): void => {
 		if (index === 5) return;
 		fiveDigitsArray[index].input = event.detail.value;
 		index++;
 	};
-	const handleDelete = () => {
+	const handleDelete = (): void => {
 		if (index === 0) return;
 		index--;
 		fiveDigitsArray[index].input = undefined;
 	};
-	const handleSubmit = async () => {
+	const handleSubmit = async (): Promise<void> => {
 		if (isFinished) return;
 		const inputNumbers: FiveDigitsArray = numbers.toArray();
 		const answers = inputNumbers.map((digit: Digit) => {
@@ -92,11 +105,13 @@
 
 		if (result === results.correct) {
 			title = 'Success!';
+			await setStats(true);
 			handleModal();
 		} else {
 			if (trialCount === 3) {
 				title = 'Failed!';
 				answer = numbers.answer();
+				await setStats(false);
 				handleModal();
 			} else {
 				trialCount++;
@@ -110,7 +125,7 @@
 			}
 		}
 	};
-	const resetInput = () => {
+	const resetInput = (): void => {
 		index = 0;
 		const resetNumbers = numbers.toArray();
 		resetNumbers.forEach((digit: Digit) => {
@@ -123,15 +138,38 @@
 		result = results.correct;
 		title = '';
 	};
-	const handleModal = () => {
+	const handleModal = (): void => {
 		modalShow = !modalShow;
 	};
-	const newGame = () => {
+	const newGame = (): void => {
 		trialCount = 1;
 		resetInput();
 		resultNumbers = [];
 		fiveDigitsArray = createRandomDigits();
 	};
+	const getStats = (): Stats => {
+		const stats: string | null = localStorage.getItem('num_puzzle_stats');
+		if (stats === null) {
+			return {
+				challenges: 0,
+				success: 0,
+				failed: 0
+			};
+		}
+		return JSON.parse(stats);
+	};
+	const setStats = async (success: boolean): Promise<void> => {
+		stats.challenges++;
+		if (success) {
+			stats.success++;
+		} else {
+			stats.failed++;
+		}
+		localStorage.setItem('stats', JSON.stringify(stats));
+	};
+	onMount(() => {
+		stats = getStats();
+	});
 </script>
 
 <h1>Welcome to SvelteKit</h1>
@@ -141,5 +179,5 @@
 <ResultNumbers results={resultNumbers} />
 <Input on:input={handleInput} on:delete={handleDelete} on:submit={handleSubmit} />
 <Modal show={modalShow} on:close={handleModal}>
-	<ResultModalContent {title} {answer} on:close={handleModal} on:newGame={newGame} />
+	<ResultModalContent {title} {answer} {stats} on:close={handleModal} on:newGame={newGame} />
 </Modal>

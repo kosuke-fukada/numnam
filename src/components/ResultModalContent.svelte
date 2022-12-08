@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import type { Stats } from '../routes/+page.svelte';
 	export let title: string;
 	export let answer: number | undefined;
+	export let stats: Stats;
 	const dispatch = createEventDispatcher();
 	const closeDispatcher = () => {
 		dispatch('close');
@@ -20,6 +22,12 @@
 			<h2>{answer}</h2>
 		</div>
 	{/if}
+	<div class="stats">
+		<h3>Stats:</h3>
+		<p>Challenges: {stats.challenges}</p>
+		<p>Success: {stats.success}</p>
+		<p>Failed: {stats.failed}</p>
+	</div>
 	<button class="button new-game-button" on:click={newGameDispatcher}>NEW GAME</button>
 	<button class="button close-button" on:click={closeDispatcher}>CLOSE</button>
 </div>
@@ -32,6 +40,13 @@
 	}
 	.answer {
 		margin: 10px 0;
+	}
+	.stats {
+		margin: 10px 0;
+		p {
+			margin-block-start: 0.5em;
+			margin-block-end: 0.5em;
+		}
 	}
 	.button {
 		width: min(50%, 150px);
