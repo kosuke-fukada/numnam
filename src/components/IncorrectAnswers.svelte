@@ -1,16 +1,17 @@
 <script lang="ts">
 	import '@fontsource/bebas-neue';
-	import type { ResultDigits } from 'src/types/numbers';
+	import type { IncorrectAnswerFiveDigits } from 'src/types/IncorrectAnswerFiveDigits';
 	import Numbers from './Numbers.svelte';
 
-	export let results: ResultDigits[] = [];
+	export let incorrectAnswers: IncorrectAnswerFiveDigits[] = [];
 </script>
 
 <div class="results">
-	{#each results.reverse() as result, index}
+	{#each incorrectAnswers.reverse() as incorrectAnswer, index}
 		<div class="result-container">
-			<span class="title">{results.length === 2 && index === 0 ? '2nd' : '1st'} Trial</span>
-			<Numbers numbers={result} result={result.result} />
+			<span class="title">{incorrectAnswers.length === 2 && index === 0 ? '2nd' : '1st'} Trial</span
+			>
+			<Numbers numbers={incorrectAnswer} result={incorrectAnswer.result} />
 		</div>
 	{/each}
 </div>
