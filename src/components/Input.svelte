@@ -54,6 +54,7 @@
 			background-color: #161b22;
 			color: #ffffff;
 			border: none;
+			cursor: pointer;
 		}
 	}
 </style>

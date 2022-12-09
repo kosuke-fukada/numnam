@@ -24,6 +24,7 @@
 		font-weight: bold;
 		color: #ffffff;
 		background-color: #ec5990;
+		cursor: pointer;
 		@media screen and (max-width: 700px) {
 			top: 15px;
 			right: 10px;

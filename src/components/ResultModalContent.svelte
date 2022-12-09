@@ -60,6 +60,7 @@
 		font-size: min(2.5vh, 20px);
 		font-weight: bold;
 		color: #6e6e6e;
+		cursor: pointer;
 		&.close-button {
 			bottom: 30px;
 		}
