@@ -47,14 +47,17 @@
 		bottom: 0;
 		.num-button {
 			width: 33%;
-			height: max(10vh, 70px);
+			height: max(8vh, 70px);
 			font-size: min(5vh, 30px);
 			font-family: 'DSEG7-Classic';
 			font-weight: bold;
 			background-color: #161b22;
 			color: #ffffff;
-			border: none;
+			border: 1px #ffffff solid;
 			cursor: pointer;
+			&:active {
+				background-color: #0a2a29;
+			}
 		}
 	}
 </style>
