@@ -1,7 +1,9 @@
 <script lang="ts">
-	import { results, type FiveDigits, type ResultDigits } from '../types/numbers';
+	import type { FiveDigits } from '../types/FiveDigits';
+	import type { IncorrectAnswerFiveDigits } from '../types/IncorrectAnswerFiveDigits';
+	import { results } from '../types/results';
 	import Num from './Num.svelte';
-	export let numbers: FiveDigits | ResultDigits;
+	export let numbers: FiveDigits | IncorrectAnswerFiveDigits;
 	export let result = results.correct;
 </script>
 

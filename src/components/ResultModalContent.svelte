@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import type { Stats } from '../routes/+page.svelte';
+	import type { Stats } from '../types/stats';
 	export let title: string;
 	export let answer: number | undefined;
 	export let stats: Stats;

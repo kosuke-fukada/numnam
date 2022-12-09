@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { statuses, type Digit } from '../types/numbers';
+	import type { Digit } from '../types/Digit';
+	import { statuses } from '../types/statuses';
 	export let number: Digit;
 </script>
 

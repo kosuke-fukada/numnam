@@ -1,47 +1,41 @@
 <script lang="ts">
-	import ResultNumbers from '../components/ResultNumbers.svelte';
-	/** @ts-ignore */
+	import { onMount } from 'svelte';
 	import Header from '../components/Header.svelte';
+	import IncorrectAnswers from '../components/IncorrectAnswers.svelte';
 	import Input from '../components/Input.svelte';
 	import Modal from '../components/Modal.svelte';
 	import Numbers from '../components/Numbers.svelte';
 	import ResultModalContent from '../components/ResultModalContent.svelte';
+	import { FIVE, FOUR, ONE, THREE, TWO, ZERO } from '../constants/common';
+	import { Digit } from '../types/Digit';
+	import { FiveDigits, type FiveDigitsArray } from '../types/FiveDigits';
+	import { IncorrectAnswerDigit } from '../types/IncorrectAnswerDigit';
 	import {
-		Digit,
-		FiveDigits,
-		onesPlaceDigit,
-		ReadOnlyDigit,
-		ResultDigits,
-		results,
-		statuses,
-		type FiveDigitsArray,
-		type NotZeroOneDigitNumber,
-		type OneDigitNumber,
-		type ReadOnlyFiveDigitsArray,
-		type Result
-	} from '../types/numbers';
-	import { onMount } from 'svelte';
-	let index = 0;
+		IncorrectAnswerFiveDigits,
+		type IncorrectAnswerFiveDigitsArray
+	} from '../types/IncorrectAnswerFiveDigits';
+	import type { NotZeroOneDigitNumber, OneDigitNumber } from '../types/numbers';
+	import { results, type Result } from '../types/results';
+	import type { Stats } from '../types/stats';
+	import { statuses } from '../types/statuses';
+	import type { TrialCount } from '../types/trialCount';
+	let index = ZERO;
 	let result: Result = results.correct;
-	let trialCount = 1;
+	let trialCount: TrialCount = ONE;
 	let modalShow = false;
 	let title = '';
-	$: isFinished = title.length > 0;
-	export type Stats = {
-		challenges: number;
-		success: number;
-		failed: number;
-	};
+	$: isFinished = title.length > ZERO;
 	let stats: Stats = {
-		challenges: 0,
-		success: 0,
-		failed: 0
+		challenges: ZERO,
+		success: ZERO,
+		failed: ZERO
 	};
 
 	const createRandomDigits = (): FiveDigitsArray => {
 		const digits: OneDigitNumber[] = [];
-		while (digits.length < 4) {
+		while (digits.length < FOUR) {
 			const random: OneDigitNumber = Math.floor(Math.random() * 10) as OneDigitNumber;
+			const onesPlaceDigit = [ZERO, FIVE];
 			if (onesPlaceDigit.includes(random)) {
 				continue;
 			}
@@ -50,31 +44,31 @@
 			}
 			digits.push(random);
 		}
-		const onesPlace = Math.random() * 10 > 5 ? 5 : 0;
+		const onesPlace = Math.random() * 10 > 5 ? FIVE : ZERO;
 		digits.push(onesPlace);
 		return [
-			new Digit(statuses.default, digits[0], false, undefined),
-			new Digit(statuses.default, digits[1], false, undefined),
-			new Digit(statuses.default, digits[2], false, undefined),
-			new Digit(statuses.default, digits[3], false, undefined),
-			new Digit(statuses.default, digits[4], false, undefined)
+			new Digit(statuses.default, digits[ZERO], false, undefined),
+			new Digit(statuses.default, digits[ONE], false, undefined),
+			new Digit(statuses.default, digits[TWO], false, undefined),
+			new Digit(statuses.default, digits[THREE], false, undefined),
+			new Digit(statuses.default, digits[FOUR], false, undefined)
 		];
 	};
 
 	let fiveDigitsArray: FiveDigitsArray = createRandomDigits();
 	$: numbers = new FiveDigits(fiveDigitsArray);
-	let resultNumbers: ResultDigits[] = [];
+	let incorrectAnswers: IncorrectAnswerFiveDigits[] = [];
 	let answer: number | undefined;
 
 	const handleInput = (
 		event: CustomEvent<{ value: OneDigitNumber | NotZeroOneDigitNumber }>
 	): void => {
-		if (index === 5) return;
+		if (index === FIVE) return;
 		fiveDigitsArray[index].input = event.detail.value;
 		index++;
 	};
 	const handleDelete = (): void => {
-		if (index === 0) return;
+		if (index === ZERO) return;
 		index--;
 		fiveDigitsArray[index].input = undefined;
 	};
@@ -101,32 +95,39 @@
 			}
 		});
 		if (undefinedIncluded) return;
-		await new Promise((resolve) => setTimeout(resolve, 0));
 
 		if (result === results.correct) {
 			title = 'Success!';
 			await setStats(true);
 			handleModal();
 		} else {
-			if (trialCount === 3) {
+			if (trialCount === THREE) {
 				title = 'Failed!';
 				answer = numbers.answer();
 				await setStats(false);
 				handleModal();
 			} else {
 				trialCount++;
-				const readOnlyFiveDigitsArray: ReadOnlyFiveDigitsArray = inputNumbers.map(
+				const readOnlyFiveDigitsArray: IncorrectAnswerFiveDigitsArray = inputNumbers.map(
 					(digit: Digit) => {
-						return new ReadOnlyDigit(digit.status, digit.answer, digit.included, digit.input);
+						return new IncorrectAnswerDigit(
+							digit.status,
+							digit.answer,
+							digit.included,
+							digit.input
+						);
 					}
-				) as ReadOnlyFiveDigitsArray;
-				resultNumbers = [...resultNumbers, new ResultDigits(readOnlyFiveDigitsArray, result)];
+				) as IncorrectAnswerFiveDigitsArray;
+				incorrectAnswers = [
+					...incorrectAnswers,
+					new IncorrectAnswerFiveDigits(readOnlyFiveDigitsArray, result)
+				];
 				resetInput();
 			}
 		}
 	};
 	const resetInput = (): void => {
-		index = 0;
+		index = ZERO;
 		const resetNumbers = numbers.toArray();
 		resetNumbers.forEach((digit: Digit) => {
 			digit.input = undefined;
@@ -142,18 +143,18 @@
 		modalShow = !modalShow;
 	};
 	const newGame = (): void => {
-		trialCount = 1;
+		trialCount = ONE;
 		resetInput();
-		resultNumbers = [];
+		incorrectAnswers = [];
 		fiveDigitsArray = createRandomDigits();
 	};
 	const getStats = (): Stats => {
 		const stats: string | null = localStorage.getItem('num_puzzle_stats');
 		if (stats === null) {
 			return {
-				challenges: 0,
-				success: 0,
-				failed: 0
+				challenges: ZERO,
+				success: ZERO,
+				failed: ZERO
 			};
 		}
 		return JSON.parse(stats);
@@ -167,7 +168,7 @@
 		}
 		localStorage.setItem('stats', JSON.stringify(stats));
 	};
-	onMount(() => {
+	onMount((): void => {
 		stats = getStats();
 	});
 </script>
@@ -176,7 +177,7 @@
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 <Header on:newGame={newGame} />
 <Numbers {numbers} {result} />
-<ResultNumbers results={resultNumbers} />
+<IncorrectAnswers {incorrectAnswers} />
 <Input on:input={handleInput} on:delete={handleDelete} on:submit={handleSubmit} />
 <Modal show={modalShow} on:close={handleModal}>
 	<ResultModalContent {title} {answer} {stats} on:close={handleModal} on:newGame={newGame} />
