@@ -185,6 +185,6 @@
 <Modal show={resultModalShow} on:close={handleResultModal}>
 	<ResultModalContent {title} {answer} {stats} on:close={handleResultModal} on:newGame={newGame} />
 </Modal>
-<Modal show={rulesModalShow}>
+<Modal show={rulesModalShow} on:close={handleRulesModal}>
 	<RulesModalContent on:close={handleRulesModal} />
 </Modal>
