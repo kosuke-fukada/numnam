@@ -6,6 +6,7 @@
 	import Modal from '../components/Modal.svelte';
 	import Numbers from '../components/Numbers.svelte';
 	import ResultModalContent from '../components/ResultModalContent.svelte';
+	import RulesModalContent from '../components/RulesModalContent.svelte';
 	import { FIVE, FOUR, ONE, THREE, TWO, ZERO } from '../constants/common';
 	import { Digit } from '../types/Digit';
 	import { FiveDigits, type FiveDigitsArray } from '../types/FiveDigits';
@@ -22,7 +23,8 @@
 	let index = ZERO;
 	let result: Result = results.correct;
 	let trialCount: TrialCount = ONE;
-	let modalShow = false;
+	let resultModalShow = false;
+	let rulesModalShow = false;
 	let title = '';
 	$: isFinished = title.length > ZERO;
 	let stats: Stats = {
@@ -99,13 +101,13 @@
 		if (result === results.correct) {
 			title = 'Success!';
 			await setStats(true);
-			handleModal();
+			handleResultModal();
 		} else {
 			if (trialCount === THREE) {
 				title = 'Failed!';
 				answer = numbers.answer();
 				await setStats(false);
-				handleModal();
+				handleResultModal();
 			} else {
 				trialCount++;
 				const readOnlyFiveDigitsArray: IncorrectAnswerFiveDigitsArray = inputNumbers.map(
@@ -139,8 +141,11 @@
 		result = results.correct;
 		title = '';
 	};
-	const handleModal = (): void => {
-		modalShow = !modalShow;
+	const handleResultModal = (): void => {
+		resultModalShow = !resultModalShow;
+	};
+	const handleRulesModal = (): void => {
+		rulesModalShow = !rulesModalShow;
 	};
 	const newGame = (): void => {
 		trialCount = ONE;
@@ -173,12 +178,13 @@
 	});
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-<Header on:newGame={newGame} />
+<Header on:newGame={newGame} on:rules={handleRulesModal} />
 <Numbers {numbers} {result} />
 <IncorrectAnswers {incorrectAnswers} />
 <Input on:input={handleInput} on:delete={handleDelete} on:submit={handleSubmit} />
-<Modal show={modalShow} on:close={handleModal}>
-	<ResultModalContent {title} {answer} {stats} on:close={handleModal} on:newGame={newGame} />
+<Modal show={resultModalShow} on:close={handleResultModal}>
+	<ResultModalContent {title} {answer} {stats} on:close={handleResultModal} on:newGame={newGame} />
+</Modal>
+<Modal show={rulesModalShow}>
+	<RulesModalContent on:close={handleRulesModal} />
 </Modal>
