@@ -44,6 +44,7 @@
 		&.show {
 			display: block;
 			z-index: 10;
+			cursor: pointer;
 		}
 		.modal-container {
 			position: absolute;
@@ -57,10 +58,11 @@
 			z-index: 11;
 			width: min(75%, 500px);
 			height: fit-content;
+			cursor: auto;
 			.modal-content {
 				text-align: center;
 				color: #ffffff;
-				padding: 30px;
+				padding: 20px 30px;
 				margin: 0 auto;
 			}
 		}
