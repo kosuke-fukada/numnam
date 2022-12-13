@@ -45,6 +45,7 @@
 			display: block;
 			z-index: 10;
 			cursor: pointer;
+			-webkit-tap-highlight-color: transparent;
 		}
 		.modal-container {
 			position: absolute;
