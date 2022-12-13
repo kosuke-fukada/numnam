@@ -12,7 +12,8 @@
 		<span>This is a five-digit number guessing game. The five-digit number is:</span>
 		<ul class="list">
 			<li>It is a multiple of 5.</li>
-			<li>All are different numbers.</li>
+			<li>0 or 5 can be placed in the ones place.</li>
+			<li>All digits are different numbers.</li>
 		</ul>
 		<span>You can try 3 times.</span>
 	</div>
@@ -44,6 +45,12 @@
 </div>
 
 <style lang="scss">
+	@media screen and (min-width: 601px) {
+		h1 {
+			margin-block-start: 0;
+			margin-block-end: 0;
+		}
+	}
 	.button {
 		width: min(50%, 150px);
 		height: min(5vh, 50px);
@@ -53,14 +60,15 @@
 		font-weight: bold;
 		color: #6e6e6e;
 		cursor: pointer;
+		margin-bottom: 20px;
 	}
 	.text {
 		text-align: left;
 		.list {
 			padding-inline-start: 20px;
 			&.digit-hints {
-				margin-block-start: 0.5em;
-				margin-block-end: 0.5em;
+				margin-block-start: 0.25em;
+				margin-block-end: 0.25em;
 			}
 		}
 		.hint-list {
