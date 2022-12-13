@@ -1,6 +1,6 @@
-<svelte:head>
-	<link href="../../node_modules/dseg/css/dseg.css" rel="stylesheet" />
-</svelte:head>
+<script>
+	import 'dseg/css/dseg.css';
+</script>
 
 <div class="container">
 	<slot />
