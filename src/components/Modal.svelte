@@ -56,7 +56,7 @@
 			background-color: #086a87;
 			z-index: 11;
 			width: min(75%, 500px);
-			max-height: min(75%, 500px);
+			height: fit-content;
 			.modal-content {
 				text-align: center;
 				color: #ffffff;

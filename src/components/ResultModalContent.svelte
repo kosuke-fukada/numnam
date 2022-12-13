@@ -28,8 +28,14 @@
 		<p>Success: {stats.success}</p>
 		<p>Failed: {stats.failed}</p>
 	</div>
-	<button class="button new-game-button" on:click={newGameDispatcher}>NEW GAME</button>
-	<button class="button close-button" on:click={closeDispatcher}>CLOSE</button>
+	<div class="button-wrapper">
+		<div class="button-container">
+			<button class="button new-game-button" on:click={newGameDispatcher}>NEW GAME</button>
+		</div>
+		<div class="button-container">
+			<button class="button close-button" on:click={closeDispatcher}>CLOSE</button>
+		</div>
+	</div>
 </div>
 
 <style lang="scss">
@@ -48,24 +54,25 @@
 			margin-block-end: 0.5em;
 		}
 	}
+	.button-wrapper {
+		margin: 30px 0 20px 0;
+		.button-container {
+			margin: 10px 0;
+		}
+	}
 	.button {
 		width: min(50%, 150px);
 		height: min(5vh, 50px);
-		position: absolute;
 		margin: 0 auto;
-		left: 0;
-		right: 0;
 		border-radius: 20px;
 		border: none;
 		font-size: min(2.5vh, 20px);
 		font-weight: bold;
 		color: #6e6e6e;
 		cursor: pointer;
-		&.close-button {
-			bottom: 30px;
-		}
 		&.new-game-button {
-			bottom: 100px;
+			color: #ffffff;
+			background-color: #ec5990;
 		}
 	}
 </style>
