@@ -58,21 +58,21 @@
 		margin: 30px 0 20px 0;
 		.button-container {
 			margin: 10px 0;
-		}
-	}
-	.button {
-		width: min(50%, 150px);
-		height: min(5vh, 50px);
-		margin: 0 auto;
-		border-radius: 20px;
-		border: none;
-		font-size: min(2.5vh, 20px);
-		font-weight: bold;
-		color: #6e6e6e;
-		cursor: pointer;
-		&.new-game-button {
-			color: #ffffff;
-			background-color: #ec5990;
+			.button {
+				width: min(80%, 150px);
+				height: min(5vh, 50px);
+				margin: 0 auto;
+				border-radius: 20px;
+				border: none;
+				font-size: min(6vw, 20px);
+				font-weight: bold;
+				color: #6e6e6e;
+				cursor: pointer;
+				&.new-game-button {
+					color: #ffffff;
+					background-color: #ec5990;
+				}
+			}
 		}
 	}
 </style>
