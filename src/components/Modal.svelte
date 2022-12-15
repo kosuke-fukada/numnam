@@ -13,7 +13,7 @@
 	};
 </script>
 
-{#key show}
+{#if show}
 	<div
 		class="modal-wrapper"
 		class:show
@@ -30,7 +30,7 @@
 			</div>
 		</div>
 	</div>
-{/key}
+{/if}
 
 <style lang="scss">
 	.modal-wrapper {
@@ -40,26 +40,26 @@
 		right: 0;
 		bottom: 0;
 		background-color: rgba($color: #000000, $alpha: 0.8);
-		display: none;
-		&.show {
-			display: block;
-			z-index: 10;
-			cursor: pointer;
-			-webkit-tap-highlight-color: transparent;
-		}
+		height: 100vh;
+		z-index: 10;
+		cursor: pointer;
+		-webkit-tap-highlight-color: transparent;
+		display: flex;
+		align-items: center;
 		.modal-container {
-			position: absolute;
 			margin: auto;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
 			border-radius: 10px;
 			background-color: #086a87;
 			z-index: 11;
 			width: min(75%, 500px);
-			height: fit-content;
+			max-height: 95vh;
 			cursor: auto;
+			overflow: scroll;
+			-ms-overflow-style: none;
+			scrollbar-width: none;
+			&::-webkit-scrollbar {
+				display: none;
+			}
 			.modal-content {
 				text-align: center;
 				color: #ffffff;
