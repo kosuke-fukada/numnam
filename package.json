@@ -14,8 +14,8 @@
 	"devDependencies": {
 		"@fontsource/bebas-neue": "^4.5.9",
 		"@fortawesome/free-solid-svg-icons": "^6.2.1",
-		"@sveltejs/adapter-auto": "next",
-		"@sveltejs/kit": "next",
+		"@sveltejs/adapter-auto": "^1.0.0",
+		"@sveltejs/kit": "^1.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
 		"dseg": "^0.46.0",
@@ -28,10 +28,10 @@
 		"svelte": "^3.53.1",
 		"svelte-check": "^2.9.2",
 		"svelte-fa": "^3.0.3",
-		"svelte-preprocess": "^4.10.7",
+		"svelte-preprocess": "^5.0.0",
 		"tslib": "^2.4.1",
 		"typescript": "^4.9.3",
-		"vite": "^3.2.4",
+		"vite": "^4.0.1",
 		"vite-plugin-checker": "^0.5.1"
 	},
 	"type": "module"
