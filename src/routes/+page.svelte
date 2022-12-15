@@ -103,23 +103,19 @@
 			await setStats(true);
 			handleResultModal();
 		} else {
+			const readOnlyFiveDigitsArray: IncorrectAnswerFiveDigitsArray = inputNumbers.map(
+				(digit: Digit) => {
+					return new IncorrectAnswerDigit(digit.status, digit.answer, digit.included, digit.input);
+				}
+			) as IncorrectAnswerFiveDigitsArray;
 			if (trialCount === THREE) {
 				title = 'Failed!';
+				fiveDigitsArray = readOnlyFiveDigitsArray;
 				answer = numbers.answer();
 				await setStats(false);
 				handleResultModal();
 			} else {
 				trialCount++;
-				const readOnlyFiveDigitsArray: IncorrectAnswerFiveDigitsArray = inputNumbers.map(
-					(digit: Digit) => {
-						return new IncorrectAnswerDigit(
-							digit.status,
-							digit.answer,
-							digit.included,
-							digit.input
-						);
-					}
-				) as IncorrectAnswerFiveDigitsArray;
 				incorrectAnswers = [
 					...incorrectAnswers,
 					new IncorrectAnswerFiveDigits(readOnlyFiveDigitsArray, result)
