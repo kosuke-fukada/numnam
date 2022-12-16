@@ -46,14 +46,14 @@
 		right: 0;
 		bottom: 0;
 		.num-button {
-			width: 33%;
+			width: 33.3%;
 			height: 8vh;
 			font-size: min(5vh, 30px);
 			font-family: 'DSEG7-Classic';
 			font-weight: bold;
 			background-color: #161b22;
 			color: #ffffff;
-			border: 1px #ffffff solid;
+			border: none;
 			cursor: pointer;
 			&:active {
 				background-color: #0a2a29;
