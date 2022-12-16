@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { faBars } from '@fortawesome/free-solid-svg-icons';
+	import { faBars, faCircleInfo, faPlay, faXmark } from '@fortawesome/free-solid-svg-icons';
 	import { createEventDispatcher } from 'svelte';
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import { slide } from 'svelte/transition';
@@ -29,13 +29,28 @@
 		>
 			<div class="menu-content">
 				<div class="menu-item">
-					<button on:click={rulesModalDispatcher}>HOW TO PLAY</button>
+					<button class="menu-button" on:click={rulesModalDispatcher}>
+						<span class="menu-button-icon">
+							<Fa icon={faCircleInfo} />
+						</span>
+						HOW TO PLAY
+					</button>
 				</div>
 				<div class="menu-item">
-					<button on:click={newGameDispatcher}>NEW GAME</button>
+					<button class="menu-button" on:click={newGameDispatcher}>
+						<span class="menu-button-icon">
+							<Fa icon={faPlay} />
+						</span>
+						NEW GAME
+					</button>
 				</div>
 				<div class="menu-item">
-					<button on:click={() => (menuShow = false)}>CLOSE</button>
+					<button class="menu-button" on:click={() => (menuShow = false)}>
+						<span class="menu-button-icon">
+							<Fa icon={faXmark} />
+						</span>
+						CLOSE
+					</button>
 				</div>
 			</div>
 		</div>
@@ -44,11 +59,13 @@
 
 <style lang="scss">
 	.header {
-		padding: 20px 10px;
+		padding: 10px;
+		margin: 0 0 10px 0;
 		height: 50px;
 		text-align: center;
 		display: flex;
 		align-items: center;
+		background-color: #040412;
 		.logo {
 			max-width: 40vw;
 			height: auto;
@@ -67,35 +84,38 @@
 		}
 		.menu {
 			position: absolute;
-			top: 90px;
+			top: 70px;
 			left: 0;
 			z-index: 10;
-			height: calc(100vh - 90px);
+			height: calc(100vh - 70px);
 			width: 100vw;
 			background-color: rgba($color: #000000, $alpha: 0.8);
 			cursor: pointer;
 			-webkit-tap-highlight-color: transparent;
 			&-content {
 				z-index: 11;
-			}
-			.menu-item {
-				height: 10vh;
-				cursor: pointer;
-				margin: 0;
-				border-bottom: #ffffff 1px solid;
-				&:first-child {
-					border-top: #ffffff 1px solid;
-				}
-				button {
-					border: none;
-					background-color: #071418;
-					width: 100%;
-					height: 100%;
-					color: #ffffff;
-					font-weight: bold;
-					font-size: min(2.5vh, 20px);
-					vertical-align: middle;
+				.menu-item {
+					height: 10vh;
 					cursor: pointer;
+					margin: 0;
+					border-bottom: #ffffff 1px solid;
+					&:first-child {
+						border-top: #ffffff 1px solid;
+					}
+					.menu-button {
+						border: none;
+						background-color: #071418;
+						width: 100%;
+						height: 100%;
+						color: #ffffff;
+						font-weight: bold;
+						font-size: min(2.5vh, 20px);
+						vertical-align: middle;
+						cursor: pointer;
+						.menu-button-icon {
+							margin: 0 5px;
+						}
+					}
 				}
 			}
 		}
