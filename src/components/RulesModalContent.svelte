@@ -7,9 +7,9 @@
 </script>
 
 <div>
-	<h1>Outline</h1>
+	<h1>What's Numnam?</h1>
 	<div class="text">
-		<span>This is a five-digit number guessing game. The five-digit number is:</span>
+		<span>"Numnam" is a five-digit number guessing game. The five-digit number is:</span>
 		<ul class="list">
 			<li>It is a multiple of 5.</li>
 			<li>0 or 5 can be placed in the ones place.</li>
@@ -45,11 +45,8 @@
 </div>
 
 <style lang="scss">
-	@media screen and (min-width: 601px) {
-		h1 {
-			margin-block-start: 0;
-			margin-block-end: 0;
-		}
+	h1 {
+		line-height: 1em;
 	}
 	.button {
 		width: min(50%, 150px);
