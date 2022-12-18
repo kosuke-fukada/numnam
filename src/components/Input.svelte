@@ -48,7 +48,7 @@
 		.num-button {
 			width: 33.3%;
 			height: 8vh;
-			font-size: min(5vh, 30px);
+			font-size: min(3vh, 30px);
 			font-family: 'DSEG7-Classic';
 			font-weight: bold;
 			background-color: #161b22;
