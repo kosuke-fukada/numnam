@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { toast } from '@zerodevx/svelte-toast';
 	import { onMount } from 'svelte';
 	import Header from '../components/Header.svelte';
 	import IncorrectAnswers from '../components/IncorrectAnswers.svelte';
@@ -103,6 +104,11 @@
 			result = results.correct;
 			title = 'Success!';
 			await setStats(true);
+			toast.push('You are Genius!', {
+				theme: {
+					'--toastBackground': 'rgba(72,187,120,0.9)'
+				}
+			});
 			handleResultModal();
 		} else {
 			const readOnlyFiveDigitsArray: IncorrectAnswerFiveDigitsArray = inputNumbers.map(
@@ -115,6 +121,11 @@
 				fiveDigitsArray = readOnlyFiveDigitsArray;
 				answer = numbers.answer();
 				await setStats(false);
+				toast.push("You ain't serious yet, huh?", {
+					theme: {
+						'--toastBackground': 'rgba(255,89,89,0.9)'
+					}
+				});
 				handleResultModal();
 			} else {
 				trialCount++;
