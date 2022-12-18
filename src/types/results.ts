@@ -1,9 +1,10 @@
-import { ONE, TWO, ZERO } from '../constants/common';
+import { ONE, THREE, TWO, ZERO } from '../constants/common';
 
 export const results = {
-	correct: ZERO,
+	default: ZERO,
 	bigger: ONE,
-	smaller: TWO
+	smaller: TWO,
+	correct: THREE
 };
 
 export type Result = typeof results[keyof typeof results];

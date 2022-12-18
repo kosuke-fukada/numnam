@@ -21,7 +21,7 @@
 	import { statuses } from '../types/statuses';
 	import type { TrialCount } from '../types/trialCount';
 	let index = ZERO;
-	let result: Result = results.correct;
+	let result: Result = results.default;
 	let trialCount: TrialCount = ONE;
 	let resultModalShow = false;
 	let rulesModalShow = false;
@@ -86,19 +86,21 @@
 				undefinedIncluded = true;
 				return;
 			}
-			if (!digit.isInputSameAsAnswer()) {
-				digit.status = statuses.incorrect;
-				if (answers.includes(digit.input)) {
-					digit.included = true;
-				}
-				if (result === results.correct) {
-					result = digit.isInputBiggerThanAnswer() ? results.bigger : results.smaller;
-				}
+			if (digit.isInputSameAsAnswer()) {
+				return;
+			}
+			digit.status = statuses.incorrect;
+			if (answers.includes(digit.input)) {
+				digit.included = true;
+			}
+			if (result === results.default) {
+				result = digit.isInputBiggerThanAnswer() ? results.bigger : results.smaller;
 			}
 		});
 		if (undefinedIncluded) return;
 
-		if (result === results.correct) {
+		if (result === results.default) {
+			result = results.correct;
 			title = 'Success!';
 			await setStats(true);
 			handleResultModal();
@@ -134,7 +136,7 @@
 		});
 		fiveDigitsArray = resetNumbers;
 		answer = undefined;
-		result = results.correct;
+		result = results.default;
 		title = '';
 	};
 	const handleResultModal = (): void => {
