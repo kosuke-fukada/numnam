@@ -11,6 +11,7 @@
 	class="numbers"
 	class:bigger={result === results.bigger}
 	class:smaller={result === results.smaller}
+	class:correct={result === results.correct}
 >
 	{#if numbers}
 		{#each numbers.toArray() as number}
@@ -22,6 +23,14 @@
 </div>
 
 <style lang="scss">
+	@keyframes blinkBorder {
+		0% {
+			border: 5px solid #3b170b;
+		}
+		100% {
+			border: 5px solid #f2f5a9;
+		}
+	}
 	.numbers {
 		display: flex;
 		justify-content: flex-end;
@@ -39,6 +48,9 @@
 		&.smaller {
 			background-color: #05122b;
 			border: 5px solid #524afa;
+		}
+		&.correct {
+			animation: blinkBorder 0.5s ease infinite alternate;
 		}
 	}
 </style>
