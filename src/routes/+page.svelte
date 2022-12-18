@@ -78,13 +78,15 @@
 	const handleSubmit = async (): Promise<void> => {
 		if (isFinished) return;
 		const inputNumbers: FiveDigitsArray = numbers.toArray();
+		const undefinedIncluded = inputNumbers.some((digit: Digit) => {
+			return digit.input === undefined;
+		});
+		if (undefinedIncluded) return;
 		const answers = inputNumbers.map((digit: Digit) => {
 			return digit.answer;
 		});
-		let undefinedIncluded = false;
 		inputNumbers.forEach((digit: Digit) => {
 			if (digit.input === undefined) {
-				undefinedIncluded = true;
 				return;
 			}
 			if (digit.isInputSameAsAnswer()) {
@@ -98,7 +100,6 @@
 				result = digit.isInputBiggerThanAnswer() ? results.bigger : results.smaller;
 			}
 		});
-		if (undefinedIncluded) return;
 
 		if (result === results.default) {
 			result = results.correct;
