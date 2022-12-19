@@ -61,6 +61,7 @@
 			.button {
 				width: min(80%, 150px);
 				height: min(5vh, 50px);
+				height: min(5dvh, 50px);
 				margin: 0 auto;
 				border-radius: 20px;
 				border: none;
