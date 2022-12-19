@@ -22,6 +22,17 @@
 </script>
 
 <svelte:head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RSBXZ7T5MH"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+
+		gtag('config', 'G-RSBXZ7T5MH');
+	</script>
 	<title>Numnam | Guess what the number is.</title>
 	<meta name="description" content="Numnam is a five-digit number guessing game." />
 	<meta property="og:title" content="Numnam | Guess what the number is." />
