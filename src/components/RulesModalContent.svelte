@@ -51,9 +51,11 @@
 	.button {
 		width: min(50%, 150px);
 		height: min(5vh, 50px);
+		height: min(5dvh, 50px);
 		border-radius: 20px;
 		border: none;
 		font-size: min(2.5vh, 20px);
+		font-size: min(2.5dvh, 20px);
 		font-weight: bold;
 		color: #6e6e6e;
 		cursor: pointer;
