@@ -164,7 +164,7 @@
 		fiveDigitsArray = createRandomDigits();
 	};
 	const getStats = (): Stats => {
-		const stats: string | null = localStorage.getItem('num_puzzle_stats');
+		const stats: string | null = localStorage.getItem('stats');
 		if (stats === null) {
 			return {
 				challenges: ZERO,
