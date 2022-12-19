@@ -41,6 +41,7 @@
 		bottom: 0;
 		background-color: rgba($color: #000000, $alpha: 0.8);
 		height: 100vh;
+		height: 100dvh;
 		z-index: 10;
 		cursor: pointer;
 		-webkit-tap-highlight-color: transparent;
@@ -53,6 +54,7 @@
 			z-index: 11;
 			width: min(75%, 500px);
 			max-height: 95vh;
+			max-height: 95dvh;
 			cursor: auto;
 			overflow: scroll;
 			-ms-overflow-style: none;

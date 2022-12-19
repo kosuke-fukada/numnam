@@ -40,6 +40,7 @@
 		background-color: #151515;
 		padding: 20px 20px 20px 0;
 		min-height: min(5vh, 65px);
+		min-height: min(5dvh, 65px);
 		border-radius: 10px;
 		&.bigger {
 			background-color: #05122b;

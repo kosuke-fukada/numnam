@@ -88,6 +88,7 @@
 			left: 0;
 			z-index: 10;
 			height: calc(100vh - 70px);
+			height: calc(100dvh - 70px);
 			width: 100vw;
 			background-color: rgba($color: #000000, $alpha: 0.8);
 			cursor: pointer;
@@ -96,6 +97,7 @@
 				z-index: 11;
 				.menu-item {
 					height: 10vh;
+					height: 10dvh;
 					cursor: pointer;
 					margin: 0;
 					border-bottom: #ffffff 1px solid;
@@ -110,6 +112,7 @@
 						color: #ffffff;
 						font-weight: bold;
 						font-size: min(2.5vh, 20px);
+						font-size: min(2.5dvh, 20px);
 						vertical-align: middle;
 						cursor: pointer;
 						.menu-button-icon {

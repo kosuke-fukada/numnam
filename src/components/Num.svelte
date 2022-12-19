@@ -18,6 +18,7 @@
 		font-weight: bold;
 		color: #f5f6ce;
 		font-size: min(5vh, 60px);
+		font-size: min(5dvh, 60px);
 		width: 20%;
 		text-align: right;
 		font-style: italic;
