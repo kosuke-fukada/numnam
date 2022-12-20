@@ -72,6 +72,7 @@
 	};
 	const handleDelete = (): void => {
 		if (index === ZERO) return;
+		if (isFinished) return;
 		index--;
 		fiveDigitsArray[index].input = undefined;
 	};
